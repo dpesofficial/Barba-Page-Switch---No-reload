@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>BArba</title>
+</head>
+<body>
+    <div data-barba="wrapper">
+        <div data-barba="container" data-barba-namespace="legacy-example">
+          <!-- put here the content you wish to change between your pages -->
+          <h1>Test</h1>
+          <img src="https://picsum.photos/seed/picsum/800/300" alt="">
+          <h2><a href="index.html">Goto home</a></h2>
+        </div>
+      </div>
+
+      <!-- load some animation library -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.2/TweenMax.min.js"></script>
+
+      <!-- load barba.js (this will use the latest UMD version of the library) -->
+      <script src="https://unpkg.com/@barba/core"></script>
+
+      <!-- load your scripts -->
+      <script>
+          // init Barba with a default "opacity" transition
+            barba.init({
+            transitions: [{
+                name: 'test',
+                leave: function(data) {
+                var done = this.async();
+                TweenMax.to(data.current.container, .2, {
+                    opacity: 0,
+                    onComplete: done
+                });
+                },
+                enter: function(data) {
+                var done = this.async();
+                TweenMax.from(data.next.container, .2, {
+                    opacity: 0,
+                    onComplete: done
+                });
+                }
+            }]
+            });
+      </script>
+</body>
+</html>
